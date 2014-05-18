@@ -1,0 +1,29 @@
+{
+  "name": "texas-ranger",
+  "version": "0.0.1",
+  "description": "Walks through a directory looking for files.",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://reergymerej@github.com/reergymerej/texas-ranger.git"
+  },
+  "keywords": [
+    "search",
+    "find",
+    "file",
+    "finder",
+    "recursive",
+    "search",
+    "file",
+    "walker"
+  ],
+  "author": "Jeremy Greer <jeremy.greer.atl@gmail.com> (http://jeremygreer.herokuapp.com/)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/reergymerej/texas-ranger/issues"
+  },
+  "homepage": "https://github.com/reergymerej/texas-ranger"
+}
