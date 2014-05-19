@@ -1,8 +1,12 @@
-var should = require('chai').should(),
+/* jshint expr: true */
+
+var chai = require('chai'),
+    should = chai.should(),
+    expect = chai.expect,
     txRng = require('../index'),
     getExtension = txRng.getExtension,
     isExtension = txRng.isExtension,
-    testDir = process.cwd() + '/' + 'test-fs';
+    testDir = process.cwd() + '/test/test-fs';
 
 describe('getExtension', function () {
     it('should return a string', function () {
@@ -33,7 +37,59 @@ describe('isExtension', function () {
 });
 
 describe('findByExtension', function () {
+
+    describe('errors', function () {
+        it('should result when missing "dir" arg', function () {
+            return txRng.find(null, 'txt', true, function (err, files) {
+                should.exist(err);
+            });
+        });
+
+        it('should result when missing "ext" arg', function () {
+            return txRng.find(testDir, '', true, function (err, files) {
+                should.exist(err);
+            });
+        });
+    });
+
+    it('should return null for no matches', function () {
+        return txRng.find(testDir, 'donkey', false, function (err, files) {
+            expect(files).to.be.null;
+        });
+    });
+
     it('should return an array', function () {
-        // txRng.find().should.be.an('array');
+        return txRng.find(testDir, 'txt', false, function (err, files) {
+            (files).should.be.an('array');
+        });
+    });
+
+    it('should find all matches', function () {
+        return txRng.find(testDir, 'txt', false, function (err, files) {
+            expect(files).to.include.members([
+                testDir + '/bar.txt',
+                testDir + '/foo.txt'
+            ]);
+        });
+    });
+
+    it('should search recursively when asked', function () {
+        return txRng.find(testDir, 'txt', true, function (err, files) {
+            expect(files).to.include.members([
+                testDir + '/bar.txt',
+                testDir + '/foo.txt',
+                testDir + '/foo/baz.txt',
+                testDir + '/foo/baz/quux.txt'
+            ]);
+        });
+    });
+
+    it('should not search recursively unless asked', function () {
+        return txRng.find(testDir, 'txt', false, function (err, files) {
+            expect(files).to.include.members([
+                testDir + '/bar.txt',
+                testDir + '/foo.txt'
+            ]);
+        });
     });
 });

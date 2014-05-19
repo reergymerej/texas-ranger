@@ -36,7 +36,7 @@ var findByExtension = function (dir, ext, recursive, done) {
 
     var finish = function () {
         if (!pending) {
-            done(null, foundFiles);
+            done(null, foundFiles.length ? foundFiles : null);
         }
     };
 
@@ -71,7 +71,7 @@ var findByExtension = function (dir, ext, recursive, done) {
         };
     };
 
-    if (dir) {
+    if (dir && ext) {
         fs.readdir(dir, function (err, files) {
             var file, i;
 
@@ -88,8 +88,10 @@ var findByExtension = function (dir, ext, recursive, done) {
             }
         });
     } else {
-        done(new Error('What directory, dude?'));
+        done(new Error(!dir ? 'What directory, dude?' :
+            'What extension are you looking for?'));
     }
+
 };
 
 exports.find = findByExtension;

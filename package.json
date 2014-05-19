@@ -28,6 +28,7 @@
   "homepage": "https://github.com/reergymerej/texas-ranger",
   "devDependencies": {
     "mocha": "~1.19.0",
-    "chai": "~1.9.1"
+    "chai": "~1.9.1",
+    "chai-as-promised": "~4.1.1"
   }
 }
