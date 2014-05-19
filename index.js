@@ -71,21 +71,25 @@ var findByExtension = function (dir, ext, recursive, done) {
         };
     };
 
-    fs.readdir(dir, function (err, files) {
-        var file, i;
+    if (dir) {
+        fs.readdir(dir, function (err, files) {
+            var file, i;
 
-        if (err) {
-            done(err);
-        } else {
+            if (err) {
+                done(err);
+            } else {
 
-            pending = files.length;
+                pending = files.length;
 
-            for (i = 0; i < files.length; i++) {
-                file = dir + '/' + files[i];
-                fs.stat(file, helper(file));
+                for (i = 0; i < files.length; i++) {
+                    file = dir + '/' + files[i];
+                    fs.stat(file, helper(file));
+                }
             }
-        }
-    });
+        });
+    } else {
+        done(new Error('What directory, dude?'));
+    }
 };
 
 exports.find = findByExtension;

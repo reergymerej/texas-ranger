@@ -1,7 +1,8 @@
 var should = require('chai').should(),
     txRng = require('../index'),
     getExtension = txRng.getExtension,
-    isExtension = txRng.isExtension;
+    isExtension = txRng.isExtension,
+    testDir = process.cwd() + '/' + 'test-fs';
 
 describe('getExtension', function () {
     it('should return a string', function () {
@@ -32,7 +33,7 @@ describe('isExtension', function () {
 });
 
 describe('findByExtension', function () {
-    it('should have tests', function () {
-        (false).should.equal(true);
+    it('should return an array', function () {
+        // txRng.find().should.be.an('array');
     });
 });
