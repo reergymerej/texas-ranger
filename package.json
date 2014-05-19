@@ -12,13 +12,13 @@
   },
   "keywords": [
     "search",
+    "directory"
     "find",
     "file",
-    "finder",
     "recursive",
-    "search",
-    "file",
-    "walker"
+    "file finder",
+    "recursive search",
+    "file walker"
   ],
   "author": "Jeremy Greer <jeremy.greer.atl@gmail.com> (http://jeremygreer.herokuapp.com/)",
   "license": "ISC",
