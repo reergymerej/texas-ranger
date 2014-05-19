@@ -7,7 +7,11 @@ var fs = require('fs');
 * @return {String}
 */
 var getExtension = function (file) {
-    return file.split('.').pop().toLowerCase();
+    var ext = '';
+    if (file && typeof file === 'string' && file.indexOf('.') !== -1) {
+        ext = file.split('.').pop().toLowerCase();
+    }
+    return ext;
 };
 
 /**
@@ -16,8 +20,8 @@ var getExtension = function (file) {
 * @return {Boolean}
 */
 var isExtension = function (file, ext) {
-    var fileExt = getExtension(file);
-    return (new RegExp(ext, 'i')).test(fileExt);
+    var fileExt = file && getExtension(file);
+    return !!(fileExt && (new RegExp(ext, 'i')).test(fileExt));
 };
 
 /**
@@ -85,3 +89,5 @@ var findByExtension = function (dir, ext, recursive, done) {
 };
 
 exports.find = findByExtension;
+exports.getExtension = getExtension;
+exports.isExtension = isExtension;
