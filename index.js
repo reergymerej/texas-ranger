@@ -1,6 +1,22 @@
 'use strict';
 
 var fs = require('fs');
+var settings = (function () {
+
+    var data = {
+        relative: true
+    };
+
+    return {
+        get: function (x) {
+            return data[x];
+        },
+
+        set: function (x, y) {
+            data[x] = y;
+        }
+    };
+}());
 
 /**
 * @param {String} file
@@ -32,10 +48,17 @@ var isExtension = function (file, ext) {
 */
 var findByExtension = function (dir, ext, recursive, done) {
     var foundFiles = [],
-        pending;
+        pending,
+        dirRegExp = settings.get('relative') &&
+            new RegExp('^' + dir + '\/');
 
     var finish = function () {
+        var i;
+
         if (!pending) {
+            for (i = 0; i < foundFiles.length && dirRegExp; i++) {
+                foundFiles[i] = foundFiles[i].replace(dirRegExp, '');
+            }
             done(null, foundFiles.length ? foundFiles : null);
         }
     };
@@ -91,9 +114,9 @@ var findByExtension = function (dir, ext, recursive, done) {
         done(new Error(!dir ? 'What directory, dude?' :
             'What extension are you looking for?'));
     }
-
 };
 
 exports.find = findByExtension;
 exports.getExtension = getExtension;
 exports.isExtension = isExtension;
+exports.settings = settings;

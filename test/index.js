@@ -6,7 +6,9 @@ var chai = require('chai'),
     txRng = require('../index'),
     getExtension = txRng.getExtension,
     isExtension = txRng.isExtension,
-    testDir = process.cwd() + '/test/test-fs';
+    testDir = process.cwd() + '/test/test-fs',
+    get = txRng.settings.get,
+    set = txRng.settings.set;
 
 describe('getExtension', function () {
     it('should return a string', function () {
@@ -36,7 +38,7 @@ describe('isExtension', function () {
     });
 });
 
-describe('findByExtension', function () {
+describe('find', function () {
 
     describe('errors', function () {
         it('should result when missing "dir" arg', function () {
@@ -65,11 +67,13 @@ describe('findByExtension', function () {
     });
 
     it('should find all matches', function () {
+        set('relative', false);
         return txRng.find(testDir, 'txt', false, function (err, files) {
             expect(files).to.include.members([
                 testDir + '/bar.txt',
                 testDir + '/foo.txt'
             ]);
+            set('relative', true);
         });
     });
 
@@ -90,6 +94,33 @@ describe('findByExtension', function () {
                 testDir + '/bar.txt',
                 testDir + '/foo.txt'
             ]);
+        });
+    });
+
+    it('should not include the directory when relative: true', function () {
+        set('relative', true);
+        
+        return txRng.find(testDir, 'bar', false, function (err, files) {
+            expect(files[0].indexOf(testDir)).to.equal(-1);
+        });
+    });
+});
+
+describe('setting options', function () {
+
+    describe('settings', function () {
+        it('should provide a getter', function () {
+            expect(txRng.settings.get).to.exist;
+        });
+
+        it('should provide a setter', function () {
+            expect(txRng.settings.set).to.exist;
+        });
+    });
+
+    describe('defaults', function () {
+        it('should have relative: true', function () {
+            expect(get('relative')).to.be.true;
         });
     });
 });

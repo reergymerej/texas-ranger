@@ -62,3 +62,41 @@ var txRng = require('texas-ranger');
 txRng.isExtension('foo.bAr', 'BaR'); // true
 txRng.isExtension('foo', 'baz'); // false
 ```
+
+### settings
+
+Settings can be changed to affect how results are returned.
+
+#### settings.get
+
+Getter for settings value.
+
+Parameters:
+
+* {String} `name`
+
+Returns: {String/Boolean/Number}
+
+```javascript
+var txRng = require('texas-ranger');
+
+txRng.settings.get('some-value');
+```
+
+#### settings.set
+
+Setter for settings value.
+
+Parameters:
+
+* {String} `name`
+* {String/Boolean/Number} `value`
+
+Returns: {undefined}
+
+```javascript
+var txRng = require('texas-ranger');
+
+txRng.settings.set('some-value', 1234);
+txRng.settings.get('some-value', 1234); // 1234
+```
