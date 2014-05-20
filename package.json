@@ -1,6 +1,6 @@
 {
   "name": "texas-ranger",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Walks through a directory looking for files.",
   "main": "index.js",
   "scripts": {
