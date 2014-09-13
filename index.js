@@ -41,6 +41,9 @@ var isExtension = function (file, ext) {
 };
 
 /**
+* Returns an array filepaths for files
+* that match an extension.  If the global `relative` is
+* false, you get absolute paths.
 * @param {String} dir
 * @param {String} ext
 * @param {Boolean} recursive
@@ -88,8 +91,11 @@ var findByExtension = function (dir, ext, recursive, done) {
                         });
                     } else {
                         pending--;
+                        finish();
                     }
                 }        
+            } else {
+                done(err);
             }
         };
     };
